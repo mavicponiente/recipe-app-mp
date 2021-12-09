@@ -1,0 +1,95 @@
+
+<title><%= tittle %></title>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" integrity="sha384-7ynz3n3tAGNUYFZD3cWe5PDcE36xj85vyFkawcF6tIwxvIecqKvfwLiaFdizhPpN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous"> 
+<link rel="stylesheet" href="style1.css">
+
+<script src="recipehome.js"></script> 
+
+<body>
+  <section class="container">
+    <th></th>
+    <h1 align="center"><i class="fas fa-carrot">My Recipe Book</i></h1>
+    <!-- form to create task -->
+    <form action="/recipehome/create-recipe" method="POST" enctype="multipart/form-data">
+     <table class="table">
+     <thead>
+         <!-- <tr class="table-active""> -->
+     
+         <th>RECIPE</th>
+         <th>STEPS</th>
+         <th>INGREDIENTS</th>
+    
+         <th></th>
+         <th></th>
+         <th></th>
+       
+       <!-- </tr> -->
+     </thead>
+           <tbody>
+               <tr>
+                 <td> <input type="text" name="description" placeholder="Enter recipe name" required></input></td>
+                 <td><textarea name="step" cols="30" rows="10" placeholder="1." required></textarea></td>
+                 <td><textarea name="ingredients" cols="30" rows="10" placeholder="1."required></textarea></td>
+    
+                 <td ><input type="submit"  class="btn btn-success" id="add" value="ADD"></td>
+                 <td ><input type="reset"   class="btn btn-reset" id="reset" value="CANCEL"></td>
+                 </td>
+                 <td>
+                 <form class="form-inline" action="/action_page.php">
+                  <input type="file" id="image" name="image" class=" text-black">
+                  <form action="/recipehome/create-recipe" method="POST" enctype="multipart/form-data"></form>
+                     
+                     <!-- <td><input type="submit"></td> -->
+                     
+                   </form></td>
+                 
+               </tr>
+           </tbody>
+       
+       </table>
+             
+    </form>
+</section>
+<div>          
+  <h2 align="center">RECIPE LIST</h2>
+
+  <form action="/recipehome/delete-recipe" method="GET">
+    
+      <table class="table">
+        <thead>
+          <tr>
+            
+            <th>SELECT</th>
+            <th>RECIPE</th>
+            <th>STEPS</th>
+            <th>INGREDIENTS</th>
+            <th>IMAGE</th>
+       
+          </tr>
+        </thead>
+        <% for(let i of recipe) { %> 
+
+          <tr>
+            
+            <td> <input type="checkbox" name="<%= i._id %>"></td>
+             <td> <p id="recipe-description"><%= i.description %></td>
+             <td> <p id="recipe-step"><%= i.step %></td>
+             <td> <p id="recipe-ingredients"><%= i.ingredients %></td>
+            
+          </tr>
+           <% } %>
+  
+       
+</table>
+<div  align = "center">
+  <th></th>
+  <td><input type="submit" class="btn btn-danger" name="delete" value="DELETE RECIPE"></td>
+  <td><input type="submit" class="btn btn-edit" name="edit" value="EDIT RECIPE"></td>
+  
+</div></form>
+<a href="/users/logout" class="btn btn-secondary" name="logout">Logout</a>
+</body>

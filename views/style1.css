@@ -1,0 +1,23 @@
+h1 {
+  padding-top: 10px;
+}
+input[type='reset'] {
+  font-size: 1.1rem;
+  background-color: rgba(231, 52, 52, 0.74);
+  width: 100px;
+  color: whitesmoke;
+  border: none;
+  padding: none;
+}
+input[name='edit'] {
+  font-size: 1.1rem;
+  background-color: yellowgreen;
+  width: 135px;
+  color: whitesmoke;
+  border: none;
+  padding: none;
+}
+.container {
+  padding-bottom: 30px;
+  margin: 15 auto;
+}
