@@ -56,6 +56,6 @@ app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/recipehome', require('./routes/recipehome'));
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, console.log(`Server is up on port ${PORT}`));
