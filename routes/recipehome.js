@@ -3,6 +3,7 @@ const db = require('mongoose');
 const Recipe = require('../models/recipe');
 const app = express();
 const multer = require('multer');
+const path = require('path');
 
 app.use(express.static('./views'));
 app.use(express.urlencoded({ extended: true }));
@@ -11,22 +12,16 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
+  destination: (req, file, cb) => {
+    cb(null, './public/uploads');
   },
 
-  filename: function (req, file, cb) {
-    const parts = file.mimetype.split('/');
-    cb(null, `${file.fieldname}-${Date.now()}.${parts[1]}`);
+  filename: (req, file, cb) => {
+    cb(null, file.originalname.slice(0, -4) + path.extname(file.originalname));
   },
 });
 
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 900 * 900 * 3,
-  },
-});
+const upload = multer({ storage: storage });
 
 app.get('/home', function (req, res) {
   Recipe.find({}, function (err, recipe) {
@@ -41,13 +36,14 @@ app.get('/home', function (req, res) {
     });
   });
 });
+
 app.post('/create-recipe', upload.single('image'), function (req, res) {
   Recipe.create(
     {
       description: req.body.description,
       step: req.body.step,
       ingredients: req.body.ingredients,
-      img: req.file.filename,
+      image: req.file.filename,
     },
 
     function (err, newrecipe) {
@@ -77,4 +73,5 @@ app.get('/delete-recipe', function (req, res) {
   }
   return res.redirect('back');
 });
+
 module.exports = app;

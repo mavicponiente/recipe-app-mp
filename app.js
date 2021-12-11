@@ -6,14 +6,11 @@ const session = require('express-session');
 const passport = require('passport');
 const dotenv = require('dotenv');
 const LocalStrategy = require('passport-local');
+const connectDB = require('./db/connection');
 
+connectDB();
 dotenv.config();
 const app = express();
-
-const mongoDB = process.env.MONGODB_URL;
-mongoose.connect(mongoDB, {
-  useNewUrlParser: true,
-});
 
 //passport config
 require('./config/passport')(passport);
@@ -23,6 +20,7 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(express.static('./views'));
+app.use(express.static('public'));
 
 //bodyparser
 app.use(express.urlencoded({ extended: true }));

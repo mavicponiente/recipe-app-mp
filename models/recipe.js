@@ -14,6 +14,10 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+    required: true,
+  },
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
